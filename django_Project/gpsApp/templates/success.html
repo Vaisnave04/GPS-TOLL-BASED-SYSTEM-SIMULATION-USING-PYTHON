@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/fontawesome.js' %}" ></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}" ></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#Trip").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'Simulate' %}");
+            });
+
+            $("#dashboard").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'dashboard' %}");
+            });
+
+            $("#History").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'viewhistory' %}");
+            });
+
+            $("#user").click(function(event) { 
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'user_list' %}");
+            });
+
+            $("#vehicle_category").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'vehicle_category' %}");
+            });
+
+            $("#pass_vehicle").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'pass_vehicle' %}");
+            });
+
+            $("#changepassword").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'changepassword' %}");
+            });
+
+            $("#report_pass").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'report_pass' %}");
+            });
+
+            $("#report_receipt").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'report_receipt' %}");
+            });
+        });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+           /* General styling */
+           body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .dashboard-container {
+            max-width: 100%;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .stat-item {
+            background: #398dee;
+            padding: 10px;
+            border-radius: 100px;
+            text-align: center;            
+            width: 100%;
+            font-family: Arial, sans-serif;
+            font-style: normal;
+            color: #000;
+        }
+        .charts {
+            margin-top: 20px;
+            padding-top: 50px;
+        }
+        .recent-trips {
+            padding-top: 50px;
+        }
+        .recent-trips table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .recent-trips th, .recent-trips td {
+            border: 1px solid #ddd;
+            padding: 16px;
+        }
+        .recent-trips th {
+            background: #f4f4f4;
+        }
+        .highcharts-figure,
+.highcharts-data-table table {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+#container {
+    height: 400px;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+        .oval-highlight {
+            width: 200px;
+            height: 100px;
+            background-color: yellow;
+            border-radius: 100px / 50px; /* creates an oval shape */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .header {
+            width: 100%;
+            height: 100vh;
+            background: #e2e9f7;
+        }
+
+        .li {
+            white-space: nowrap;
+        }
+
+        .side-nav {
+            width: 20%;
+            height: 100%;
+            background: #0d74f5;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px 20px;
+            overflow-y: auto; /* Add vertical scrollbar */
+        }
+
+        .logo {
+            display: block;
+            margin-bottom: 20px;
+            height: auto; /* Maintain the aspect ratio */
+        }
+
+        .logo-img {
+            width: 70px;
+        }
+
+        .nav-links {
+            list-style: none;
+            position: relative;
+        }
+
+        .nav-links li {
+            padding: 8px 0;
+            position: relative; /* Ensure li is positioned relatively */
+        }
+
+        .nav-links li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 2px 2px;
+            display:flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .nav-links li a i {
+            font-size: 22px;
+            margin-right: 20px;
+        }
+
+        .nav-links li:hover {
+            background: white;
+        }
+
+        .nav-links li:hover a {
+            color: blue; /* Change text color on hover */
+        }
+
+        .active {
+            background: #fff;
+            width: 100%;
+            height: 37px;
+            position: absolute;
+            left: 0;
+            display: none;
+            border-radius: 6px;
+            box-shadow: 0px 5px 10px rgba(255, 255, 255, 0.4);
+            z-index: -1;
+            transition: top 0.5s;
+        }
+
+        .logo-imgicon {
+            display: none;
+            width: 45px;
+        }
+
+        .contentDiv {
+            width: 280px;
+            height: 300px;
+            background-size: cover; /* Make the background image cover the entire div */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent the background image from repeating */
+        }
+
+        @media only screen and (max-width: 600px) {
+            .side-nav {
+                width: 30px;
+            }
+
+            .logo-imgicon {
+                display: block;
+            }
+
+            .logo-img {
+                display: none;
+            }
+
+            .nav-links li a p {
+                display: none;
+            }
+
+            .nav-links li a i {
+                margin-right: 0;
+            }
+
+            .nav-links li a {
+                justify-content: center;
+            }
+        }
+        body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .header {
+        background-color: lightblue;
+        color: white;
+        padding: 15px;
+        text-align: center;
+    }
+    .main {
+      display: flex;
+      flex: 1;
+    }
+    .sidenav {
+      width: 200px;
+      background-color: #111;
+      color: white;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+    .content {
+      flex: 1;
+      background-color: #f1f1f1;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+    .tablecontent {
+        width: 980px;
+        height: 100px;
+        margin-top: 15%;
+        margin-left: 15%;
+        background-size: cover; /* Make the background image cover the entire div */
+        background-position: center; /* Center the background image */
+        background-repeat: no-repeat; /* Prevent the background image from repeating */
+    }
+    .sidenav a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 8px 0;
+    }
+    .sidenav a:hover {
+      background-color: #575757;
+    }
+
+    .header_size
+    {
+        width: 100%;  /* Fixed width of 300 pixels */
+        height: 80px; /* Fixed height of 200 pixels */
+        background-color: #4f8fdcbb;
+    }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const navItems = document.querySelectorAll(".nav-links li");
+            navItems.forEach(item => {
+                item.addEventListener("mouseenter", function() {
+                    const activeBar = document.querySelector(".active");
+                    const itemRect = item.getBoundingClientRect();
+                    const parentRect = item.parentElement.getBoundingClientRect();
+                    const offsetTop = itemRect.top - parentRect.top;
+
+                    activeBar.style.top = `${offsetTop}px`;
+                    activeBar.style.display = "block";
+                });
+
+                item.addEventListener("mouseleave", function() {
+                    const activeBar = document.querySelector(".active");
+                    activeBar.style.display = "none";
+                });
+            });
+
+            var yAxisValues = [];
+for (var i = 1; i <= 50; i++) {
+    yAxisValues.push(i * 5); // Pushing values like 5, 10, 15, ..., 50
+}
+var xAxisValues = [];
+
+            fetch('{% url "chart_data" %}')
+                .then(response => response.json())
+                .then(data => {
+                    // Use the data to render a Highchart
+                    Highcharts.chart('highchart_container', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Monthly Data'
+                        },
+                        xAxis: {
+                            categories: ['May', 'June', 'July']
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Trip Count'
+                            }
+                        },
+                        series: [{
+                            name: 'Data',
+                            data: data.data
+                        }]
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        
+        
+
+        });
+    </script>
+     {% csrf_token %}
+         <div class="main_container">
+            <div class="header_size">
+                <table width="100%" cellspacing="0" cellpadding="3" border="0">
+                    <tr>
+                        <td align="center"><br><b><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;GPS TOLL SYSTEM</h1></b>
+                            
+                        </td>
+                        <td align="right" style="vertical-align: top">
+                            <br><b>Welcome :{{ userdetails.username }} &nbsp;&nbsp;&nbsp;&nbsp;<br>Login Time : {{ userdetails.login_time }} </b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="main">
+                <div class="side-nav">
+                    <a href="#" class="logo">
+                        <img src="{% static 'img/gpsimg3.jpg' %}" class="logo-img">
+                    </a>
+                    <ul class="nav-links">
+                        <li><a href="#" id="dashboard"><i class="fa-solid fa-house"></i><p>Dashboard</p></a></li>
+                        {% if userdetails.super_user == 'True' %}
+                        <li><a href="#" id="user"><i class="fa-solid fa-inbox"></i><p>User</p></a></li>
+                        {% endif %}
+                        <li><a href="#" id="pass_vehicle"><i class="fa-solid fa-passport"></i><p>Generate Pass</p></a></li>
+                        <li><a href="#" id="Trip"><i class="fa-solid fa-car-side"></i><p>Take a Trip</p></a></li>  
+                        
+                        {% if userdetails.super_user == 'True' %}
+                        <li><a href="#" id="vehicle_category"><i class="fa-solid fa-list"></i><p>Vehicle Category</p></a></li>                        
+                        {% endif %}
+                        <li><a href="#" id="report_pass"><i class="fa-solid fa-file-invoice"></i><p>Reports of Pass</p></a></li>          
+                 
+                        <li><a href="#" id="changepassword"><i class="fa-solid fa-file-invoice"></i><p>Change Password</p></a></li>
+                        
+                        <li><a href="{% url 'home_page' %}"><i class="fa-solid fa-right-from-bracket"></i><p>Logout</p></a></li>
+                        <div class="active"></div>
+                    </ul>
+                </div>
+            </div>
+            <div class="main-content colored-div">
+                <div id="contentDiv">
+                    <table cellpadding="3" cellspacing="0" border="0" width="80%" class="tablecontent">
+                        <tr>
+                            <td width="80%">
+                                <div class="stats">
+                                    <table border="0" cellspacing="0" cellpadding="3" width="100%">
+                                        <tr>
+                                            <td >
+                                                <div class="stat-item">
+                                                    <h2>Total Trips</h2>
+                                                    <p>{{ userdetails.aggregate_data.num_trips }}</p>
+                                                </div>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                            <td>
+                                                <div class="stat-item">
+                                                    <h2>Total Distance</h2>
+                                                    <p>{{ userdetails.aggregate_data.total_distance }}</p>
+                                                </div>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                            <td>
+                                                <div class="stat-item">
+                                                    <h2>Total Payments</h2>
+                                                    <p>{{ userdetails.aggregate_data.total_amount }}</p>
+                                                </div>
+                                            </td>
+                                            
+                                        </tr>
+                                    </table>
+                                    
+                                </div>       
+                            </td>
+                            </tr>
+                            <tr><td>&nbsp;</td></tr><tr>
+                            <td width="50%">
+                                <div class="container" id="recent-recent-trips">
+                            
+                                    <table border="1">
+                                        <thead>
+                                            <tr class="dataGridColor">
+                                                <th colspan="8" align="center"><h2>Recent Trip List</h2></th>
+                                            </tr>
+                                        </thead>
+                                            <thead>
+                                                <tr class="dataHeadColor">
+                                                    <th  >Date</th>
+                                                    <th class="black-font" >Source</th>
+                                                    <th class="black-font" >Destination</th>
+                                                    <th class="black-font" >Distance</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for trip in userdetails.trips %}
+                                                    <tr class="dataGridColor">
+                                                        <td>{{ trip.trip_date }}</td>
+                                                        <td>{{ trip.source }}</td>
+                                                        <td>{{ trip.destination }}</td>
+                                                        <td>{{ trip.distance }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            
+                                        </table>                              
+                                </div>
+                            </td>
+                        </tr>
+                        <tr><td> <div class="charts">
+                            <h2 class="dataHeadColor"><span style="color: black">Trips Over Time</span></h2>
+                            <div id="highchart_container" style="width: 100%; height: 400px;"></div>
+                        </div></td></tr>
+                    </table>
+                  
+                    <br>
+                        
+                    
+            </div>
+            
+                </div>
+            </div>
+          </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

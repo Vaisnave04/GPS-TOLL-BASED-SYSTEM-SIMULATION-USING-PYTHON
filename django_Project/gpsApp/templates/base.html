@@ -1,0 +1,60 @@
+<!-- myapp/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Frame Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #top-frame {
+            height: 20%;
+            width:auto;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #mid-frame {
+            height: 80%;
+            background-color: #fff;
+            overflow-y: auto;
+        }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function loadContent(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('mid-frame').innerHTML = html;
+                })
+                .catch(error => console.error('Error loading content:', error));
+        }
+    </script>
+</head>
+<body>
+    <frameset rows="75,*" frameborder="NO" border="1" framespacing="0" cols="*"> 
+          
+    <div id="top-frame" >
+        {% include 'top_frame.html' %}
+    </div>
+    <div id="mid-frame">
+        <!-- Initial mid-frame content -->
+        {% include 'mid_frame_home.html' %}
+    </div>
+</frameset>
+</body>
+</html>

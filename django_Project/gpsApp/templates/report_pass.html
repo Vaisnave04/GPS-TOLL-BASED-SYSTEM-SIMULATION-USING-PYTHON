@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pass Report</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+            padding-left: 250px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border:0;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 0px solid #0f0d0d;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0d74f5;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        
+        <thead>
+            <tr class="dataHeadColor" align="center">
+                <th colspan="9">Pass Report</th>
+            </tr>
+            <tr class="dataHeadColor">
+                <th>Pass ID</th>
+                <th>Vehicle Number</th>
+                <th>Vehicle Category</th>
+                <th>Valid From</th>
+                <th>Valid To</th>
+                <th>Name of Applicant</th>
+                <th>Vehicle Name</th>
+                <th>Source</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in result.gpstolltripdetails %}
+            <tr class="dataGridColor">
+                <td>{{ item.trip_id }}</td>
+                <td>{{ item.vehicle_regno }}</td>
+                <td>{{ item.vehicle_catid }}</td>
+                <td>{{ item.validity_from }}</td>
+                <td>{{ item.vality_to }}</td>
+                <td>{{ item.Applicant_name }}</td>
+                <td>{{ item.Vehicle_name }}</td>
+                <td>{{ item.Address }}</td>
+                <td>{{ item.costof_pass }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        // Example of fetching data from a database and populating the table
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchPassData();
+        });
+
+        function fetchPassData() {
+            // Example: Fetch data from a backend API or database
+            // Replace with actual fetch logic to get pass data
+            // Dummy data for demonstration
+            const passes = [
+                { id: 1, vehicleNumber: 'TN-1234', vehicleCategory: 'Four Wheeler', validFrom: '2024-07-10', validTo: '2024-07-20', 
+                  applicantName: 'John Doe', applicantGender: 'Male', address: '123 Main St, City', cost: '50' },
+                { id: 2, vehicleNumber: 'KA-5678', vehicleCategory: 'Two Wheeler', validFrom: '2024-07-15', validTo: '2024-07-25', 
+                  applicantName: 'Jane Smith', applicantGender: 'Female', address: '456 Park Ave, Town', cost: '25' }
+                // Add more data as needed
+            ];
+
+            const tbody = document.querySelector('tbody');
+
+            passes.forEach(pass => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${pass.id}</td>
+                    <td>${pass.vehicleNumber}</td>
+                    <td>${pass.vehicleCategory}</td>
+                    <td>${pass.validFrom}</td>
+                    <td>${pass.validTo}</td>
+                    <td>${pass.applicantName}</td>
+                    <td>${pass.applicantGender}</td>
+                    <td>${pass.address}</td>
+                    <td>${pass.cost} Rs</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>

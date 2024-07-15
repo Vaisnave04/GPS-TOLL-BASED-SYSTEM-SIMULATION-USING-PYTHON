@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Simulation History</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            padding-left:300px;
+        }
+
+        
+
+    </style>
+</head>
+<body >
+    <div class="form-container1">
+        <form action="simulate_vehicle" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <table border="0" cellpadding="3" cellspacing="0">
+             
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                        
+                            <tr class="dataHead"><td align="center" colspan="8">Vehicle Simulation History</td></tr>
+                            <tr class="dataHeadColor">
+                            <td width="5%" align="center" nowrap>
+                                Sl. No
+                            </td>
+                            <td width="25%" align="center">
+                                Source
+                            </td>
+                            <td width="25%" align="center">
+                                Destination
+                            </td>
+                            <td width="10%" align="center" nowrap>
+                                No. of Tolls Crossed
+                            </td>
+                            <td width="15%" align="center">
+                                Total Amount
+                            </td>
+                            <td width="15%" align="center">
+                                Trip Date
+                            </td>
+                            <td width="5%" align="center" nowrap>
+                                Payment Status
+                            </td>
+                            <td width="5%">
+                               &nbsp;
+                            </td>
+                        </tr>
+                        </table>
+                        </td>
+                        </tr>
+                        <tr>
+                            <td><div class="cellContainer">
+                        <table width="100%" border="0" cellpadding="3" cellspacing="1">
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                        <tr class="dataGridColor">
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="25%" align="center">&nbsp;</td>
+                            <td width="10%" align="center" nowrap>&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="15%" align="center">&nbsp;</td>
+                            <td width="5%" align="center" nowrap>&nbsp;</td>
+                            <td width="5%">&nbsp;</td>
+                        </tr>
+                    </table></div>
+                    </td>
+                </tr>
+                </table>
+            
+        </form>
+    </div>
+</body>
+</html>

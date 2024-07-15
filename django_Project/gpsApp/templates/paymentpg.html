@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Simulation</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/stylepaymentpg.css' %}">
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <h1>GPS Toll Simulation</h1>
+        <div class="toll-simulation">
+            <form>
+                <label for="from">From:</label>
+                <input type="text" id="from" value="Enter starting point">
+                <label for="to">To:</label>
+                <input type="text" id="to" value="Enter destination">
+                <button id="get-directions">Get Directions</button>
+                <button id="pay-toll-charge">Pay Toll Charge</button>
+            </form>
+                    </div>
+        <div class="month-history">
+            <table>
+                <tr>
+                    <th>Month</th>
+                    <th>Pending Charges</th>
+                    <th>Due Date</th>
+                    <th>No. of Toll Booths Crossed</th>
+                    <th>Charge per Distance</th>
+                    <th>Pay</th>
+                </tr>
+                <tr>
+                    <td>June</td>
+                    <td id="pending-amount">$0.00</td>
+                    <td id="due-date-value">None</td>
+                    <td id="toll-booth-count">0</td>
+                    <td id="charge-per-distance-value">$0.00</td>
+                    <td><button id="pay-button">Pay</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Simulation</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/style.css' %}">
+    <script>
+    $(document).ready(function() {
+        $('#Simulate').blur(function() {
+            var inputValue = $(this).val();
+            event.preventDefault();
+            $("#contentDiv1").load("{% url 'simulate_vehicle' %}");
+        });
+
+        
+
+    });
+    function populateValues(obj)
+    {
+        if(obj.value!=""){
+            result =obj.value;
+            let result1=result.split("-");
+            //alert(result1[1]);
+            sourcelat=result1[1].split(",");
+            sourcelat1=sourcelat[0].split(" ");           
+            sourcelon=sourcelat1[1].split(" ")
+            
+            //document.forms[0].source.value=result1[1];
+           // document.forms[0].destination.value=result1[2];
+            //document.forms[0].nooftolls.value=result1[3];
+
+                    // Example usage:
+            const distance = haversineDistance(40.7128, -74.006, 34.0522, -118.2437);
+          
+            console.log("d=="+sourcelat1[1]);
+            console.log(sourcelat[1]); 
+            console.log(`Distance: ${distance.toFixed(2)} kilometers`);
+        }
+    }
+
+    function haversineDistance(lat1, lon1, lat2, lon2) {
+    // Convert latitude and longitude from degrees to radians
+    const toRadians = (angle) => angle * (Math.PI / 180);
+
+    // Haversine formula
+    const R = 6371; // Radius of the Earth in kilometers
+    const φ1 = toRadians(lat1);
+    const φ2 = toRadians(lat2);
+    const Δφ = toRadians(lat2 - lat1);
+    const Δλ = toRadians(lon2 - lon1);
+
+    const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distance = R * c; // Distance in kilometers
+    return distance;
+}
+
+
+           
+
+</script>
+    <style>
+        body {
+            
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container1">
+        
+        <form action="" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <div class="">
+                <div class="container">
+                    <table border=0 cellspacing=0 cellpadding=0 width="100%">
+                        <thead>
+                            <tr>
+                                <th class="black-font" nowrap>Vehicle Pass Id</th>
+                                <th class="black-font" nowrap>Vehicle Category </th>
+                                <th class="black-font">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="black-font">
+                                <td style="vertical-align: top"><select id="vehiclepassid" name="items" required onchange="populateValues(this)">
+                                    <option value="">Select Pass ID</option>
+                                    {% for items in result.gpstolltripdetails %}
+                                        <option value="{{ items.trip_id }}-{{ items.source }}-{{ items.destination }}-{{ items.nooftolls }}">{{ items.trip_id }} - {{ items.Vehicle_name }}</option>
+                                    {% endfor %}
+                                </select> </td>
+                                <td><select id="vehicleCategory" name="items" required>
+                                    <option value="">Select Category</option>
+                                    {% for item in result.VehicleCategory %}
+                                        <option value="{{ item.category_id }}">{{ item.vehicle_type }}</option>
+                                    {% endfor %}
+                                </select> </td>
+                                <th class="black-font">&nbsp;</th>
+                            </tr>
+                       
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th class="black-font">Source</th>
+                                <th class="black-font">Destination</th>
+                                <th class="black-font">&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="black-font">
+                                <td><input type="text" id="source" name="source" required> </td>
+                                <td><input type="text" id="destination" name="destination" required></td>
+                                <td><input type="button" value="Simulate" id="Simulate" class="btn"></td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr><td colspan="2">
+                            <div class="">
+                                <div id="contentDiv1">
+                                    
+                                    <!-- Content will be loaded here dynamically -->
+                                </div>
+                            </div>
+                            </td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th class="black-font">No. of Tolls</th>
+                                <th class="black-font" nowrap>Total Killo Meter</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="black-font">
+                                <td><input type="text" id="nooftolls" name="nooftolls" required> </td>
+                                <td><input type="text" id="totalkm" name="totalkm" required> </td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                               <td>&nbsp;</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="button" value="Submit" class="btn"></td>
+                                <td><input type="button" class="btn" value="Payment"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            
+            
+        </form>
+    </div>
+</body>
+</html>

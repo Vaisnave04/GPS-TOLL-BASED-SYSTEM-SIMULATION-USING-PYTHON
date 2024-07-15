@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media='screen' href="{% static 'css/styleadmin.css' %}">
+    <style>
+        body {
+            background-image: url('{% static "img/image1.avif" %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+    </style>
+</head>
+<body>
+    {% block content %}
+   
+    
+    <div class="form-container">
+        <center>
+            <h2>Register Form</h2>
+            <form action="register_action" method="post" autocomplete="off">
+                {% csrf_token %}
+               <table border="0" cellspacing="0" cellpadding="3">
+                <tr>
+                    <td><label for='first_name'><b>First Name :</b></label></td>
+                    <td><input type='text' placeholder="Enter your first name" name='first_name'  required></td>
+                </tr>
+                <tr>
+                    <td><label for='last_name'><b>Last Name :</b></label></td>
+                    <td><input type='text' placeholder="Enter your last name" name='last_name'  required></td>
+                </tr>
+                <tr>
+                    <td><label for='sex'><b>Sex :</b></label></td>
+                    <td><input type='radio' name='sex' value="male" required>
+                        <label ><b>Male</b></label>
+                        <input type='radio' name='sex' value="female" required>
+                        <label ><b>Female</b></label>
+                    </td>
+                </tr>
+                <!--<tr>
+                    <td><label for='dob'><b>Date Of Birth</b></label></td>
+                    <td><input type='text' name='dateofbirth' placeholder="Enter Date of Birth" required></td>
+                </tr>-->
+                <tr>
+                    <td><label for='address'><b>Address</b></label></td>
+                    <td><input type='text' name='address' placeholder="Enter Address" required></td>
+                </tr>
+                <tr>
+                    <td><label for='email'><b>Email Id</b></label></td>
+                    <td><input type='text' name='email' placeholder="Enter email" required></td>
+                </tr>
+                <tr>
+                    <td><label for='password'><b>Password :</b></label></td>
+                    <td><input type='text' placeholder="Enter Password" name='password'  required></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><button class="btn" type="submit"><b>Signup</b></button><br></td>
+                </tr>
+            </table>    
+                    
+                    
+                    
+            <a href="D:\django_Project\gpsApp\templates\home.html">Home</a>
+            <a href="https://www.bing.com/ck/a?!&&p=91c150fce78e9cd5JmltdHM9MTcxODE1MDQwMCZpZ3VpZD0xOTVmNGNjNy01ZmZlLTZjYTctMTg1NC01ZWUzNWU0YzZkNTYmaW5zaWQ9NTIxNg&ptn=3&ver=2&hsh=3&fclid=195f4cc7-5ffe-6ca7-1854-5ee35e4c6d56&psq=tamilnadhu+toll+charges&u=a1aHR0cDovL3RucmRjLmNvbS90b2xsLXJhdGVzLw&ntb=1">Toll Charges</a>
+        </center>
+    </div>
+</form>
+    {% endblock %}
+</body>
+</html>

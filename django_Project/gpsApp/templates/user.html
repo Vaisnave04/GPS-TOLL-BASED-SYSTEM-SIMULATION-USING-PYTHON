@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/fontawesome.js' %}" ></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}" ></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .table-container {
+    width: 100%;
+    margin-top: -15%;
+    margin-left: -40px;
+    margin-right:-5px; /* Example margin */
+}
+table {
+    width: 100%; /* Make the table fill its container */
+    border-collapse: collapse; /* Collapse borders */
+}
+th, td {
+    border: 1px solid #898080; /* Border styling */
+    padding: 4px; /* Padding inside cells */
+    text-align: left; /* Align text left */
+    vertical-align: top;
+}
+th {
+    background-color: #a1bedb; /* Header background color */
+    text-align: center;
+}
+.black-font {
+            color: black;
+        }
+        
+    </style>
+</head>
+<body>
+    <form action="simulate_vehicle" method="POST" autocomplete="off">
+    {% block content %}
+    <div class="table-container">
+        {% csrf_token %}
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr><td width="50%">
+        <div class="">
+        <div class="container" id="user_list">
+            
+            <table>
+                <thead>
+                    <tr class="dataHeadColor">
+                        <th colspan="8" align="center" class="black-font"><h2>Users List</h2></th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr class="dataHeadColor">
+                        <th class="black-font" align="center" nowrap>First Name</th>
+                        <th class="black-font" align="center" nowrap>Last Name</th>
+                        <th class="black-font" align="center" nowrap>Date of Birth</th>
+                        <th class="black-font" align="center" nowrap>Gender</th>
+                        <th class="black-font" align="center" nowrap>Email Id</th>
+                        <th class="black-font" align="center" nowrap>Address</th>
+                        <th class="black-font" align="center" nowrap>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    {% for receipt in receipts %}
+                    
+                    <!-- Sample Data (Replace with dynamic data from backend) -->
+                    <tr class="dataGridColor">
+                        
+                        <td>{{ receipt.first_name }}</td>
+                        <td>{{ receipt.last_name }}</td>
+                        <td>{{ receipt.dateofbirth }}</td>
+                        <td>{{ receipt.sex }}</td>
+                        <td>{{ receipt.email }}</td>
+                        <td>{{ receipt.Address }}</td>
+                        <td><a href="#" class="download-btn" id="editUser"><i class="fa fa-pencil-square" aria-hidden="true"></i></a> / <a href="#" class="download-btn" id="deleteUser"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tbody>
+                    <tr><td colspan="7">
+                        <div class="pagination" id="pagination">
+                          <button id="prev">Previous</button>
+                          <span id="page-info"></span>
+                          <button id="next">Next</button>
+                        </div></td></tr>
+                </tbody>
+            </table>
+        </div>
+     </div></td></tr>
+   </table></div>
+        </form>
+      
+
+    <script>
+        function editUser() {
+            // Logic to handle edit user functionality
+            console.log("Edit user clicked");
+        }
+
+        function addUser() {
+            // Show add user form and hide user list
+            document.getElementById("userDetailsForm").style.display = "block";
+            document.getElementById("userList").style.display = "none";
+        }
+
+        function deleteUser() {
+            // Logic to handle delete user functionality
+            console.log("Delete user clicked");
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const grid = document.getElementById('grid');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+        const pageInfo = document.getElementById('page-info');
+
+        const itemsPerPage = 20;
+        let currentPage = 1;
+        let totalItems = 100; // Example total number of items
+        let totalPages = Math.ceil(totalItems / itemsPerPage);
+
+        function createGridItems(page) {
+            grid.innerHTML = '';
+            const start = (page - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+
+            for (let i = start; i < end && i < totalItems; i++) {
+            const item = document.createElement('div');
+            item.className = 'grid-item';
+            item.textContent = `Item ${i + 1}`;
+            grid.appendChild(item);
+            }
+
+            pageInfo.textContent = `Page ${page} of ${totalPages}`;
+        }
+
+        function updatePagination() {
+            prevButton.disabled = currentPage === 1;
+            nextButton.disabled = currentPage === totalPages;
+        }
+
+        prevButton.addEventListener('click', function() {
+            if (currentPage > 1) {
+            currentPage--;
+            createGridItems(currentPage);
+            updatePagination();
+            }
+        });
+
+        nextButton.addEventListener('click', function() {
+            if (currentPage < totalPages) {
+            currentPage++;
+            createGridItems(currentPage);
+            updatePagination();
+            }
+        });
+
+        // Initial load
+        createGridItems(currentPage);
+        updatePagination();
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>
+

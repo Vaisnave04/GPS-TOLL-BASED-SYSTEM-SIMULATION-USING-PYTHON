@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Pass</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, 
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .form-group select {
+            appearance: none; /* Remove default appearance for select */
+            padding-right: 40px; /* Add space for arrow icon */
+            background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 14.95a1 1 0 001.414 0l4.243-4.243a1 1 0 00-1.414-1.414L10 12.122l-3.536-3.536a1 1 0 00-1.414 1.414l4.243 4.243z" fill="%23454f5b"/></svg>');
+            background-repeat: no-repeat;
+            background-position: calc(100% - 10px) center;
+            background-size: 12px;
+        }
+
+        .form-group button {
+            background-color: #0d74f5;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .form-container2 {
+            overflow: auto;
+    background: rgba(0, 0, 0, 0.178);
+    border-radius: 10px;
+    width: 80%;
+      height: 80%;
+      border: 1px solid #ccc;
+    margin-top: -5%;
+    margin-left: 180px;
+    margin-right:20px;
+    outline: solid 1px black;
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+        .receipt {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+    gap: 10px; /* Gap between grid items */
+    padding: 20px; /* Padding inside the grid container */
+    background-color: #f0f0f0; /* Background color of grid container */
+}
+
+.table-container {
+    width: 90%;
+    margin-top: 5%;
+    margin-left: 200px;
+    margin-right:-25px; /* Example margin */
+}
+table {
+    width: 100%; /* Make the table fill its container */
+    border-collapse: collapse; /* Collapse borders */
+}
+th, td {
+    border: 1px solid #898080; /* Border styling */
+    padding: 4px; /* Padding inside cells */
+    text-align: left; /* Align text left */
+    vertical-align: top;
+}
+th {
+    background-color: #f2f2f2; /* Header background color */
+}
+.black-font {
+            color: black;
+        }
+    </style>
+</head>
+<body onload="fetchItems()">
+    {% block content %}
+    <div class="table-container">
+        <form action="" method="post" autocomplete="off">
+            {% csrf_token %}
+<table border=0 cellspacing=0 cellpadding=0 width="100%">
+    <tr><td width="50%">
+        <div class="">
+            <div class="container">
+                <table border=0 cellspacing=0 cellpadding=0 width="100%">
+                    <thead>
+                        <tr>
+                            <th class="black-font" nowrap>Vehicle Reg. Number</th>
+                            <th class="black-font" nowrap>Vehicle Category </th>
+                            <th class="black-font">Vehicle Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="black-font">
+                            <td style="vertical-align: top"><input type="text" id="vehicleNumber" name="vehicleNumber" required></td>
+                            <td><select id="vehicleCategory" name="items" required>
+                                <option value="">Select Category</option>
+                                {% for item in items %}
+                                    <option value="{{ item.category_id }}">{{ item.vehicle_type }}</option>
+                                {% endfor %}
+                            </select> </td>
+                            <td><input type="text" id="vehicleName" name="vehicleName" required></td>
+                        </tr>
+                   
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th class="black-font">Validity From</th>
+                            <th class="black-font">Validity To</th>
+                            <th class="black-font" nowrap>Name of the Applicant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="black-font">
+                            <td><input type="text" id="validityFrom" name="validityfrom" required> </td>
+                            <td><input type="text" id="validityto" name="validityto" required></td>
+                            <td><input type="text" id="applicantname" name="applicantname" required></td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th class="black-font">Date of Birth</th>
+                            <th class="black-font" nowrap>Applicant Gender</th>
+                            <th class="black-font">Cost of Pass</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="black-font">
+                            <td><input type="text" id="dateofbirth" name="dateofbirth" required> </td>
+                            <td><input type="text" id="sex" name="sex" required> </td>
+                            <td><input type="text" id="cost" name="cost" required> </td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                           <td>&nbsp;</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="3"><a href="#" id="Generate">Generate Pass</button></td>
+                        </tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>   
+    </td></tr></table></form></div>{% endblock %}
+        <script>
+
+        $(document).ready(function() {
+            $("#edit_btn").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'editUser' %}");
+            });
+
+            $("#dashboard").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'dashboard' %}");
+            });
+
+            $("#Payment").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'paymentpg' %}");
+            });
+
+            $("#History").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'viewhistory' %}");
+            });
+
+            $("#user").click(function(event) { 
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'user_list' %}");
+            });
+
+            $("#vehicle_category").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'vehicle_category' %}");
+            });
+
+            $("#pass_vehicle").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'pass_vehicle' %}");
+            });
+
+            $("#changepassword").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'changepassword' %}");
+            });
+
+            $("#report_pass").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'report_pass' %}");
+            });
+
+            $("#report_receipt").click(function(event) {
+                event.preventDefault();
+                $("#contentDiv").load("{% url 'report_receipt' %}");
+            });
+        });
+
+            // Fetch items from Django view and populate dropdown
+        window.addEventListener('DOMContentLoaded', function() {alert("dd")
+            fetchItems();
+        });
+
+        async function fetchItems() {alert("ddd");
+            try {
+                const response = await fetch('/api/items/');  // Replace with your Django URL
+                const data = await response.json();
+                const dropdown = document.getElementById('item-dropdown');
+
+                // Clear placeholder option
+                dropdown.innerHTML = '';
+
+                // Populate dropdown with fetched items
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.id;
+                    option.textContent = item.name;
+                    dropdown.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching items:', error);
+            }
+        }
+            function payAndGeneratePass() {
+                // Redirect to payment page
+                window.location.href = 'paymentpg.html';
+            }
+        </script>
+</body>
+</html>

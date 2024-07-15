@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" media='screen' href="{% static 'css/styleadmin.css' %}">
+    <style>
+        body {
+            background-image: url('{% static "img/image3.jpg" %}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <center>
+            <h1>GPS TOLL BASED SYSTEM SIMULATION</h1>
+            <nav>
+                <a href="D:\django_Project\gpsApp\templates\home.html">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </center>
+
+    </header>
+    
+    {% block content %}
+    <center>
+        <h1>ADMIN</h1>
+    </center>
+    
+    <div class="form-container">
+        <center>
+            <h2>Admin Login</h2>
+            <form action="" method="post" autocomplete="off">
+                <table>
+                    <tr>
+                        <td>Username:</td>
+                        <td><input type="text" class="styled-textbox" placeholder="Enter your name" size="20"></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="" class="styled-textbox" placeholder="Enter your password" size="20"></td>
+                    </tr>
+                </table>
+                <button class="login-button" type="submit">Login</button>
+            </form>
+            <br>
+            <a href="D:\django_Project\gpsApp\templates\home.html">Home</a>
+            <a href="https://www.bing.com/ck/a?!&&p=91c150fce78e9cd5JmltdHM9MTcxODE1MDQwMCZpZ3VpZD0xOTVmNGNjNy01ZmZlLTZjYTctMTg1NC01ZWUzNWU0YzZkNTYmaW5zaWQ9NTIxNg&ptn=3&ver=2&hsh=3&fclid=195f4cc7-5ffe-6ca7-1854-5ee35e4c6d56&psq=tamilnadhu+toll+charges&u=a1aHR0cDovL3RucmRjLmNvbS90b2xsLXJhdGVzLw&ntb=1">Toll Charges</a>
+        </center>
+    </div>
+    {% endblock %}
+</body>
+</html>
